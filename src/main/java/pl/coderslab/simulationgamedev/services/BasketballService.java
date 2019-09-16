@@ -12,6 +12,7 @@ import pl.coderslab.simulationgamedev.repositories.TeammateRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class BasketballService implements GameInterface {
@@ -31,7 +32,9 @@ public class BasketballService implements GameInterface {
     public Game createGame(String gameType) {
         Basketball basketball = new Basketball();
         basketball.setNameOfGame("Basketball");
+        basketball.setNumberOfPhase(4);
         basketball.setNumberOfTeammates(5);
+        basketball.setPlayerLimit(2);
         basketballRepository.save(basketball);
         return basketball;
     }
@@ -53,8 +56,13 @@ public class BasketballService implements GameInterface {
     }
 
     @Override
-    public void moveToNextPhase(Game game) {
+    public void moveToNextPhase(Game game) throws Exception {
         Basketball currentGame = (Basketball) game;
+
+        if(currentGame.getCurrentPhase()==currentGame.getNumberOfPhase()){
+            throw new Exception("End of game");
+        }
+
         Random r = new Random();
         int firstTeamScore = 0;
         int secondTeamScore = 0;
@@ -70,9 +78,39 @@ public class BasketballService implements GameInterface {
 
         currentGame.setScore1(currentGame.getScore1() + firstTeamScore);
         currentGame.setScore2(currentGame.getScore2() + secondTeamScore);
-
+        currentGame.setCurrentPhase( currentGame.getCurrentPhase() + 1);
         basketballRepository.save(currentGame);
     }
 
+    @Override
+    public Player getPlayer(Game game, int playerNumber) throws Exception {
+
+        Basketball basketball = (Basketball) game;
+        switch (playerNumber){
+            case 1: return basketball.getPlayer1();
+            case 2: return basketball.getPlayer2();
+            default: throw new Exception("Player number over limit");
+        }
+
+    }
+
+    @Override
+    public List<Teammates> getAvailableTeammatesToChose(Game game) {
+        Basketball basketball = (Basketball) game;
+        List<Teammates> allTeammates = teammateRepository.findAllByType("Basketball");
+
+        List<Player> players = new ArrayList<>();
+        players.add(basketball.getPlayer1());
+        players.add(basketball.getPlayer2());
+
+        List<Teammates> alreadyChosen = teammateRepository.findAllByPlayersIn(players);
+        return allTeammates.stream()
+                .filter( teammate -> !alreadyChosen.contains(teammate) )
+                .collect(Collectors.toList());
+    }
+
+    public Game getDetails(String type, Long gameId) {
+       return  basketballRepository.getOne(gameId);
+    }
 }
 

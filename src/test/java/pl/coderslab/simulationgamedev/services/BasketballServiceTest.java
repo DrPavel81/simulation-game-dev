@@ -94,19 +94,41 @@ public class BasketballServiceTest {
         Player p1FromDB = playerRepository.getOne(p1.getId());
         assertEquals(game.getNumberOfTeammates(), p1FromDB.getTeammates().size());
 
-        assertEquals(0,teammateRepository.findAll().size());
+        assertEquals(10,teammateRepository.findAll().size());
 
 
     }
 
 
     @Test
-    public void moveToNextPhase() {
+    public void moveToNextPhase() throws Exception {
         //given
+        Game game = gameService.createGame("Basketball");
+        Player p1 = playerService.create("Jon",game);
+        Player p2 = playerService.create("Joel",game);
+
+        List<Teammates> teammates = teammateRepository.findAllByType("Basketball");
+        List<Teammates> teammatesP1 = new ArrayList<>();
+        List<Teammates> teammatesP2 = new ArrayList<>();
+        for (Teammates teammate : teammates) {
+            if (teammate.getId()% 2 == 0) {
+                teammatesP1.add(teammate);
+            }else {
+                teammatesP2.add(teammate);
+            }
+        }
+
+        boolean result1 = gameService.addTeamMember(game, p1,teammatesP1);
+        boolean result2 = gameService.addTeamMember(game, p2,teammatesP2);
+
+        Basketball basketball = (Basketball)game;
+        int s1=basketball.getScore1();
+        int s2=basketball.getScore2();
 
         //when
-
+        basketballService.moveToNextPhase(game);
         //then
+        assertTrue( s1!=basketball.getScore1() || s2!=basketball.getScore2() );
     }
 
 }

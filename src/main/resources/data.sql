@@ -1,10 +1,10 @@
-INSERT INTO teammates (full_name, rating, type) VALUES ('DeAndre Jordan',83,'Basketball');
+INSERT INTO teammates (full_name, rating, type) VALUES ('DeAndre Jordan',92,'Basketball');
 INSERT INTO teammates (full_name, rating, type) VALUES ('LeBron James',97,'Basketball');
 INSERT INTO teammates (full_name, rating, type) VALUES ('Kawhi Leonard',97,'Basketball');
 INSERT INTO teammates (full_name, rating, type) VALUES ('Michael Jordan',99,'Basketball');
-INSERT INTO teammates (full_name, rating, type) VALUES ('Chris Paul',85,'Basketball');
-INSERT INTO teammates (full_name, rating, type) VALUES ('Dwight Howard',80,'Basketball');
-INSERT INTO teammates (full_name, rating, type) VALUES ('Blake Griffin',88,'Basketball');
-INSERT INTO teammates (full_name, rating, type) VALUES ('Paul George',93,'Basketball');
+INSERT INTO teammates (full_name, rating, type) VALUES ('Chris Paul',94,'Basketball');
+INSERT INTO teammates (full_name, rating, type) VALUES ('Dwight Howard',95,'Basketball');
+INSERT INTO teammates (full_name, rating, type) VALUES ('Blake Griffin',98,'Basketball');
+INSERT INTO teammates (full_name, rating, type) VALUES ('Paul George',95,'Basketball');
 INSERT INTO teammates (full_name, rating, type) VALUES ('James Harden',96,'Basketball');
 INSERT INTO teammates (full_name, rating, type) VALUES ('Stephen Curry',95,'Basketball');

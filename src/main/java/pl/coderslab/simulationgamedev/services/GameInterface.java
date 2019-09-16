@@ -11,6 +11,9 @@ public interface GameInterface {
 
     boolean addTeamMember(Game game, Player player,  List<Teammates> teammate);
 
-    void moveToNextPhase(Game game);
+    void moveToNextPhase(Game game)throws Exception;
 
+    Player getPlayer(Game game, int playerNumber) throws Exception;
+
+    List<Teammates> getAvailableTeammatesToChose(Game game);
 }

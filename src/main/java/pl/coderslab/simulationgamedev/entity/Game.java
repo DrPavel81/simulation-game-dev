@@ -21,6 +21,26 @@ public abstract class Game {
 
     private int numberOfPhase;
 
+    private int currentPhase;
+
+    private int playerLimit;
+
+    public int getPlayerLimit() {
+        return playerLimit;
+    }
+
+    public void setPlayerLimit(int playerLimit) {
+        this.playerLimit = playerLimit;
+    }
+
+    public int getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(int currentPhase) {
+        this.currentPhase = currentPhase;
+    }
+
     public int getNumberOfPhase() {
         return numberOfPhase;
     }

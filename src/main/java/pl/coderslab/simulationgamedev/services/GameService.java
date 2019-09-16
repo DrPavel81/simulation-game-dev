@@ -42,13 +42,31 @@ public class GameService implements GameInterface{
     }
 
     @Override
-    public void moveToNextPhase(Game game) {
+    public void moveToNextPhase(Game game) throws Exception {
         GameInterface gameService = recognizeServiceForGame(game);
         gameService.moveToNextPhase(game);
 
     }
+
+    @Override
+    public Player getPlayer(Game game, int playerNumber) throws Exception {
+        GameInterface gameService = recognizeServiceForGame(game);
+        return gameService.getPlayer(game, playerNumber);
+    }
+
+    @Override
+    public List<Teammates> getAvailableTeammatesToChose(Game game) {
+        GameInterface gameService = recognizeServiceForGame(game);
+        return gameService.getAvailableTeammatesToChose(game);
+    }
+
     private GameInterface recognizeServiceForGame(Game game){
         String gameType = game.getClass().getName();
+
+        if(gameType.contains("pl.coderslab.simulationgamedev.entity.Basketball")){
+            return  basketballService;
+        }
+
         switch (gameType){
             case "pl.coderslab.simulationgamedev.entity.Basketball":
                 return  basketballService;
@@ -62,6 +80,11 @@ public class GameService implements GameInterface{
     }
 
 
+    public Game getDetails(String type, Long gameId) {
+        switch (type){
+            case "Basketball": return basketballService.getDetails(type, gameId);
+            default: return null;
+        }
 
-
+    }
 }

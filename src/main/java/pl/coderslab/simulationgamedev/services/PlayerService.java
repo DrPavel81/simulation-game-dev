@@ -1,11 +1,12 @@
 package pl.coderslab.simulationgamedev.services;
 
+import org.springframework.stereotype.Service;
 import pl.coderslab.simulationgamedev.entity.Basketball;
 import pl.coderslab.simulationgamedev.entity.Game;
 import pl.coderslab.simulationgamedev.entity.Player;
 import pl.coderslab.simulationgamedev.repositories.BasketballRepository;
 import pl.coderslab.simulationgamedev.repositories.PlayerRepository;
-
+@Service
 public class PlayerService implements PlayerInterface{
 
     BasketballRepository basketballRepository;

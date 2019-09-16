@@ -72,4 +72,14 @@ public class FootballService implements GameInterface{
 
         footballRepository.save(currentGame);
     }
+
+    @Override
+    public Player getPlayer(Game game, int playerNumber) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Teammates> getAvailableTeammatesToChose(Game game) {
+        return null;
+    }
 }
